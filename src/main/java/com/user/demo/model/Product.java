@@ -1,59 +1,40 @@
 package com.user.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "product_table")
+@Data
+
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //generates the value of the primary key automatically when a new record is inserted into the database. The IDENTITY strategy relies on the database to generate the primary key value, typically using an auto-incrementing column.
     private long productId;
-    private String productName;
 
-    public long getProductId() {
-        return productId;
-    }
+    @NotBlank(message = "Product name is mandatory")
+    @Size(min = 2, max = 15, message = "Product name must be between 2 and 15 characters")
+        private String productName;
 
-    public void setProductId(long productId) {
-        this.productId = productId;
-    }
+    @NotBlank(message = "Product category is mandatory")
+    @Size(min = 2, max = 15, message = "Product category must be between 2 and 15 characters")
+    private String productCategory;
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public long getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(long productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public long getProductDiscount() {
-        return productDiscount;
-    }
-
-    public void setProductDiscount(long productDiscount) {
-        this.productDiscount = productDiscount;
-    }
-
+    @NotBlank(message = "Product description is mandatory")
+    @Size(min = 2, max = 100, message = "Write Product description")
     private String productDescription;
-    private long productPrice;
-    private long productDiscount;
+
+
+    @NotNull(message = "Product price is mandatory")
+    @Positive
+    private double productPrice;
+
+    @PositiveOrZero
+    private double productDiscount;
+
+
 
 
 }
