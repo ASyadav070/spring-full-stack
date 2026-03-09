@@ -27,14 +27,12 @@ public class Product {
     private String productDescription;
 
 
-    @NotNull(message = "Product price is mandatory")
-    @Positive
+    @NotNull
+    @Positive(message="Product price must be positive")
     private double productPrice;
 
     @PositiveOrZero
+    @Max(value=100, message = "Product discount cannot exceed 100%")
     private double productDiscount;
-
-
-
 
 }
