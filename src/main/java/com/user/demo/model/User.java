@@ -18,23 +18,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Name is mandatory")
-    @Size(min = 2, max = 30, message = "Name must be between 2 and 30 characters")
+    @Column(nullable = false, length = 30)
     private String name;
 
-    @NotBlank(message = "Email is mandatory")
-    @Email  //validate the email format
+
     @Column(unique = true, nullable = false)
     private String email;
 
 
-    @NotBlank(message = "Password is mandatory")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}$",
-            message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
+    @Column(nullable = false)
     private String password;
 
-    @NotNull
+
+    @Column(nullable = false, length = 10, unique = true)
     private long mobile;
 
 
